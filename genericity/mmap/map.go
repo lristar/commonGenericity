@@ -1,9 +1,8 @@
 package mmap
 
 import (
+	"github.com/lristar/commonGenericity/genericity/array"
 	"golang.org/x/exp/constraints"
-	"myproject/go_base/base/genericity/array"
-	"sort"
 	"sync"
 )
 
@@ -53,8 +52,4 @@ func (a HSet[T]) Del(key T) {
 		a.len--
 
 	}
-}
-
-func (a HSet[T]) Sort() {
-	sort.Sort(a)
 }

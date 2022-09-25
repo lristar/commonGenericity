@@ -2,7 +2,7 @@ package lists
 
 import (
 	"container/list"
-	"myproject/go_base/base/genericity/array"
+	"github.com/lristar/commonGenericity/genericity/array"
 	"sync"
 )
 
