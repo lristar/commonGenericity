@@ -6,14 +6,7 @@ import (
 	"sync"
 )
 
-type Set[T string | int] map[T]interface{}
-
-type HSet[T constraints.Ordered] struct {
-	m   map[T]interface{}
-	n   array.ArraysCp[T]
-	len int
-	mx  sync.RWMutex
-}
+type Set[T comparable] map[T]interface{}
 
 func (s Set[T]) Set(k T) {
 	s[k] = struct{}{}
@@ -28,6 +21,17 @@ func (s Set[T]) IsExist(k T) bool {
 		return true
 	}
 	return false
+}
+
+func (s Set[T]) Del(k T) {
+	delete(s, k)
+}
+
+type HSet[T constraints.Ordered] struct {
+	m   map[T]interface{}
+	n   array.ArraysCp[T]
+	len int
+	mx  sync.RWMutex
 }
 
 func (a HSet[T]) Add(key T) {
@@ -50,6 +54,5 @@ func (a HSet[T]) Del(key T) {
 		defer a.mx.Unlock()
 		delete(a.m, key)
 		a.len--
-
 	}
 }
